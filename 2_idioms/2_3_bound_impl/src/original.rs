@@ -2,7 +2,7 @@ use std::{
     borrow::{Borrow, BorrowMut},
     num::NonZeroU64,
 };
-mod original;
+
 fn main() {
     println!("Refactor me!");
 }
@@ -105,17 +105,17 @@ impl Version {
 /// An aggregate that has been loaded from a source, which keeps track of the version of its last snapshot and the current version of the aggregate.
 #[derive(Clone, Copy, Debug, Default, Hash, PartialEq, Eq)]
 pub struct HydratedAggregate<A>
-//where
-//    A: Aggregate,
+where
+    A: Aggregate,
 {
     version: Version,
     snapshot_version: Option<Version>,
     state: A,
 }
 
-impl<A: Aggregate> HydratedAggregate<A>
-//where
-//    A: Aggregate,
+impl<A> HydratedAggregate<A>
+where
+    A: Aggregate,
 {
     /// The current version of the aggregate.
     pub fn version(&self) -> Version {
@@ -151,18 +151,18 @@ impl<A: Aggregate> HydratedAggregate<A>
     }
 }
 
-impl<A: Aggregate> AsRef<A> for HydratedAggregate<A>
-//where
-    //A: Aggregate,
+impl<A> AsRef<A> for HydratedAggregate<A>
+where
+    A: Aggregate,
 {
     fn as_ref(&self) -> &A {
         &self.state
     }
 }
 
-impl<A: Aggregate> Borrow<A> for HydratedAggregate<A>
-//where
-//    A: Aggregate,
+impl<A> Borrow<A> for HydratedAggregate<A>
+where
+    A: Aggregate,
 {
     fn borrow(&self) -> &A {
         &self.state
