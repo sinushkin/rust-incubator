@@ -39,7 +39,7 @@ pub trait Event {
 }
 
 /// An event that can be applied to an aggregate.
-pub trait AggregateEvent<A: Aggregate>: Event {
+pub trait AggregateEvent<A>: Event {
     /// Consumes the event, applying its effects to the aggregate.
     fn apply_to(self, aggregate: &mut A);
 }
@@ -172,9 +172,9 @@ impl<A: Aggregate> Borrow<A> for HydratedAggregate<A>
 /// An identified, specific instance of a hydrated aggregate.
 #[derive(Clone, Copy, Debug, Default, Hash, PartialEq, Eq)]
 pub struct Entity<I, A>
-where
-    A: Aggregate,
-    I: AggregateId<A>,
+//where
+//    A: Aggregate,
+//    I: AggregateId<A>,
 {
     id: I,
     aggregate: HydratedAggregate<A>,
